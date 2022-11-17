@@ -89,6 +89,10 @@ string lowercases(string strlwr){
 
 int main(){
     ifstream file ("file.in");
+    	if (!file.is_open()) {
+		cout << "Cannot open the file" ;
+		exit(1);
+	}
     string user_input;
     getline(file, user_input);
     int no_of_customer = stoi(user_input);
