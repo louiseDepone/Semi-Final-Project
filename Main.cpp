@@ -1,9 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cctype>
-#include <cstdio>
-#include <cstdlib> 
+#include <sstream>
 using namespace std;
 
 double total_laneqeueu;
@@ -17,17 +15,14 @@ struct Customer
     double idle;
 };
 
-void removeDupWord(string str, Customer& customer, int i)
+void parsecustomerdata(string str, Customer& customer, int i)
 {
-    string word = "";
     customer.idle = (i > 0) ? 3 : 0;
+    stringstream indivstring(str);
+    string word;
     int counter = 1;
-    for (int i = 0; i < str.length(); i++)
-    {
-        if (str[i] == ' ')
-        {
-          
-            switch (counter)
+    while(indivstring >> word){
+         switch (counter)
             {
                 case 1:
                     customer.no_of_Cart_Items = (stod(word));
@@ -41,22 +36,13 @@ void removeDupWord(string str, Customer& customer, int i)
                 case 4:
                     customer.preferred_Payment_Method = (word);
                     break;
+                case 5:
+                    customer.exact_or_not_cash = (word);
+                    break;
             }
             counter++;
-            word = "";
-        }
-        else {
-            word = word + str[i];
-        }
     }
-
-   if(customer.preferred_Payment_Method == "cash"){
-        customer.exact_or_not_cash = (word);
-   }else{
-        customer.preferred_Payment_Method = (word);
-   }
 }
- 
 
 void display_customer_info(Customer customer, int i){
             
@@ -106,7 +92,7 @@ string lowercases(string strlwr){
         lower += char(tolower(strlwr[i]));
     }
     return lower;
-}
+} ////https://www.tutorialspoint.com/cplusplus-program-to-check-if-input-is-an-integer-or-a-string#:~:text=Apply%20isdigit()%20function%20that,the%20value%20of%20type%20int
 
 
 int main(){
@@ -120,7 +106,7 @@ int main(){
     cout <<    "\n=================================================\n";
    int i = 0;
     while(getline(file, user_input)){
-        removeDupWord(lowercases(user_input), order_list[i], i);
+        parsecustomerdata(lowercases(user_input), order_list[i], i);
         display_customer_info(order_list[i], i);
         cout << "\n------------------------------------------------\n";
         customers_qeueu(order_list[i]);
@@ -132,5 +118,3 @@ int main(){
 
     return 0;
 }
-
-
