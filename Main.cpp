@@ -50,19 +50,11 @@ void display_customer_info(Customer customer, int i){
             cout << "No of cart                   : "<< customer.no_of_Cart_Items << endl;
             cout << "Preferred packaging          : "<< customer.preferred_Packaging << endl;
             cout << "No. of package ";
-            if(customer.preferred_Packaging == "bags"){
-            cout                <<"bags          : ";
-            } else{
-            cout                <<"boxes         : ";
-            } 
+            (customer.preferred_Packaging == "bags") ? cout <<  "bags          : ": cout <<  "boxes         : ";
             cout << customer.number_of_boxes  << endl;
             cout << "Payment method               : " << customer.preferred_Payment_Method;
-            if(customer.exact_or_not_cash == "e"){
-                cout << "(Exact)"; 
-            }else if (customer.exact_or_not_cash == "ne")
-            {
-                cout << "(Not Exact)"; 
-            }
+            if (customer.preferred_Payment_Method == "cash") (customer.exact_or_not_cash == "e") ? cout <<  "(Exact)" : cout <<  "(Not Exact)";
+
 }
 
 
@@ -104,7 +96,7 @@ int main(){
    
     cout << "No. of Customers:" << no_of_customer;
     cout <<    "\n=================================================\n";
-   int i = 0;
+    int i = 0;
     while(getline(file, user_input)){
         parsecustomerdata(lowercases(user_input), order_list[i], i);
         display_customer_info(order_list[i], i);
@@ -114,7 +106,6 @@ int main(){
         i++;
     }
     cout << "\n====================================================\n";
- cout << "Total Lane Queue Time        :" << total_laneqeueu;
-
+    cout << "Total Lane Queue Time        :" << total_laneqeueu;
     return 0;
 }
